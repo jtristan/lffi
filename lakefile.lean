@@ -3,6 +3,10 @@ import Lake
 open Lake DSL
 open System IO FS
 
+require mathlib from git
+  "https://github.com/leanprover-community/mathlib4.git" @ "v4.10.0-rc2"
+
+
 package lffi where
   -- add package configuration options here
 
