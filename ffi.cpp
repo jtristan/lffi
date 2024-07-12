@@ -108,6 +108,8 @@ extern "C" lean_object * prob_Pure(lean_object * a, lean_object * eta) {
 extern "C" lean_object * prob_Bind(lean_object * f, lean_object * g, lean_object * eta) {
     cout << "Bind\n" << flush;
     lean_object * exf = lean_apply_1(f,0);
-    lean_object * pa = lean_apply_1(g,exf);
+    cout << "First value: " << lean_unbox(exf) << "\n" << flush;
+    lean_object * pa = lean_apply_2(g,exf,0);
+    cout << "Second value: " << lean_unbox(pa) << "\n" << flush;
     return pa;
 } 

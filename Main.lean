@@ -37,8 +37,8 @@ def main : IO Unit := do
   let r2 : SLang ℕ := probPure (5 : ℕ)
   IO.println s!"Random: {r2}"
 
-  --let r3 : SLang ℕ := probBind (UniformPowerOfTwoSample 6) probPure
-  --IO.println s!"Random: {r3}"
+  let r3 : SLang ℕ := probBind (UniformPowerOfTwoSample 6) probPure
+  IO.println s!"Random: {r3}"
 
   --let rx : SLang ℕ := comp 5
   --IO.println s!"Random: {rx}"
