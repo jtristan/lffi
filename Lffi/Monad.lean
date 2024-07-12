@@ -77,6 +77,6 @@ opaque probWhile (cond : T → Bool) (body : T → SLang T) (init : T) : SLang T
 
 -- @[extern "prob_While"]
 -- noncomputable def probWhile (cond : T → Bool) (body : T → SLang T) (init : T) : SLang T :=
---   fun x => ⨆ (i : ℕ), (probWhileCut cond body i init x)
+--    fun x => ⨆ (i : ℕ), (probWhileCut cond body i init x)
 
 end SLang

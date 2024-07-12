@@ -97,8 +97,8 @@ extern "C" lean_object * prob_UniformP2(lean_object * a, lean_object * eta) {
 
 extern "C" lean_object * toString_SLang(lean_object * a) {
     lean_object * fin = lean_apply_1(a,0);
-    return nat_to_string(fin);
-}
+    return nat_to_string(fin); // Generalize here, may not be nat
+} // But do we even want this function except for debugging? Probably not!
 
 extern "C" lean_object * prob_Pure(lean_object * a, lean_object * eta) {
     cout << "Return\n" << flush;
