@@ -1,6 +1,7 @@
 #include <lean/lean.h>
 #include <cstdlib> 
 #include <iostream> 
+#include <sys/time.h>
 using namespace std; 
 
 extern "C" uint32_t my_add(uint32_t a, uint32_t b) {
@@ -82,7 +83,6 @@ extern "C" lean_object * prob_UniformP2(lean_object * a, lean_object * eta) {
             if (n < 10) {
                 size_t bound = 1 << n; 
                 cout << "bound: " << bound << "\n" << flush;
-                srand ( time(NULL) );
                 size_t r = rand() % bound; 
                 cout << "random value: " << r << "\n" << flush;
                 return lean_box(r);
@@ -121,4 +121,18 @@ extern "C" lean_object * prob_While(lean_object * condition, lean_object * body,
         state = lean_apply_2(body,state,0);
     }
     return state;
+}
+
+extern "C" lean_object * my_run(lean_object * a) {
+    struct timeval t1;
+    gettimeofday(&t1, NULL);
+    srand(t1.tv_usec * t1.tv_sec);
+    cout << "my_run\n" << flush;
+    lean_object * comp = lean_apply_1(a,0);
+    cout << "into value: " << lean_unbox(comp) << "\n" << flush;
+    return lean_io_result_mk_ok(comp);
+} 
+
+extern "C" lean_object * into_IO(lean_object * a) {
+    return lean_io_result_mk_ok(a);
 }

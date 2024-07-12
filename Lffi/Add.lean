@@ -64,3 +64,10 @@ opaque Pap1 (f : ℕ → ℕ → ℕ) (a b : ℕ) : ℕ
 
 @[extern "pap_test_2"]
 opaque Pap2 (f : ℕ → ℕ → ℕ) (a b : ℕ) : ℕ
+
+/-
+  Exploring IO
+-/
+
+@[extern "into_IO"]
+opaque intoIO (x : T) : IO T

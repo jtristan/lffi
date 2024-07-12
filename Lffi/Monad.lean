@@ -42,11 +42,11 @@ def probZero : SLang T := λ _ : T => 0
 def UniformPowerOfTwoSample (n : ℕ+) : SLang ℕ :=
   toSLang (PMF.uniformOfFintype (Fin (2 ^ (log 2 n))))
 
-@[extern "toString_SLang"]
-opaque toStringSLang (n : SLang ℕ) : String
+-- @[extern "toString_SLang"]
+-- opaque toStringSLang (n : SLang ℕ) : String
 
-instance : ToString (SLang ℕ) where
-  toString := toStringSLang
+-- instance : ToString (SLang ℕ) where
+--   toString := toStringSLang
 
 @[extern "prob_Pure"]
 def probPure (a : T) : SLang T := fun a' => if a' = a then 1 else 0
@@ -75,5 +75,15 @@ def probWhileCut (cond : T → Bool) (body : T → SLang T) (n : Nat) (a : T) : 
 @[extern "prob_While"]
 def probWhile (cond : T → Bool) (body : T → SLang T) (init : T) : SLang T :=
    fun x => ⨆ (i : ℕ), (probWhileCut cond body i init x)
+
+-- private unsafe def probWhileAux (cond : T → Bool) (body : T → SLang T) (init : T) : SLang T :=
+--   if cond init then probBind (body init) (probWhileAux cond body) else probPure init
+
+-- @[implemented_by probWhileAux]
+-- noncomputable def probWhile (cond : T → Bool) (body : T → SLang T) (init : T) : SLang T :=
+--     fun x => ⨆ (i : ℕ), (probWhileCut cond body i init x)
+
+@[extern "my_run"]
+opaque run (c : SLang T) : IO T
 
 end SLang
