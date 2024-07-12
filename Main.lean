@@ -40,9 +40,5 @@ def main : IO Unit := do
   let r3 : SLang ℕ := probBind (UniformPowerOfTwoSample 6) probPure
   IO.println s!"Random: {r3}"
 
-  --let rx : SLang ℕ := comp 5
-  --IO.println s!"Random: {rx}"
-
--- Importance of createReal
--- Beware of coercions
--- can't just use uint32_t as is if code is not char or UInt32 otherwise least significatn bit problematic
+  let rx : SLang ℕ := comp 5
+  IO.println s!"Random: {rx}"
