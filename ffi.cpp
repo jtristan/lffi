@@ -113,3 +113,12 @@ extern "C" lean_object * prob_Bind(lean_object * f, lean_object * g, lean_object
     cout << "Second value: " << lean_unbox(pa) << "\n" << flush;
     return pa;
 } 
+
+extern "C" lean_object * prob_While(lean_object * condition, lean_object * body, lean_object * init, lean_object * eta) {
+    cout << "While\n" << flush;
+    lean_object * state = init; 
+    while (lean_unbox(lean_apply_1(condition,state))) {
+        state = lean_apply_2(body,state,0);
+    }
+    return state;
+}

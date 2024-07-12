@@ -36,6 +36,8 @@ end PMF
 
 namespace SLang
 
+def probZero : SLang T := λ _ : T => 0
+
 @[extern "prob_UniformP2"]
 def UniformPowerOfTwoSample (n : ℕ+) : SLang ℕ :=
   toSLang (PMF.uniformOfFintype (Fin (2 ^ (log 2 n))))
@@ -56,5 +58,25 @@ def probBind (p : SLang T) (f : T → SLang U) : SLang U :=
 instance : Monad SLang where
   pure := probPure
   bind := probBind
+
+def probWhileFunctional (cond : T → Bool) (body : T → SLang T) (wh : T → SLang T) : T → SLang T :=
+  λ a : T =>
+  if cond a
+    then do
+      let v ← body a
+      wh v
+    else return a
+
+def probWhileCut (cond : T → Bool) (body : T → SLang T) (n : Nat) (a : T) : SLang T :=
+  match n with
+  | Nat.zero => probZero
+  | succ n => probWhileFunctional cond body (probWhileCut cond body n) a
+
+@[extern "prob_While"]
+opaque probWhile (cond : T → Bool) (body : T → SLang T) (init : T) : SLang T
+
+-- @[extern "prob_While"]
+-- noncomputable def probWhile (cond : T → Bool) (body : T → SLang T) (init : T) : SLang T :=
+--   fun x => ⨆ (i : ℕ), (probWhileCut cond body i init x)
 
 end SLang

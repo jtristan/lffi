@@ -42,3 +42,9 @@ def main : IO Unit := do
 
   let rx : SLang ℕ := comp 5
   IO.println s!"Random: {rx}"
+
+  let w1 : SLang ℕ := probWhile (fun _ => false) (fun x => probPure x) 6
+  IO.println s!"While: {w1}"
+
+  let w2 : SLang ℕ := probWhile (fun x => x != 3) (fun _ => UniformPowerOfTwoSample 2) 6
+  IO.println s!"While: {w2}"
