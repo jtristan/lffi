@@ -53,3 +53,14 @@ instance : ToString (α → ℝ) where
 @[extern "my_add2_fun"]
 def myAdd2Fun (a : α → ℝ) (b : α → ℝ) : α → ℝ :=
   fun (x : α) => a x + b x
+
+
+/-
+  Exploring partial application
+-/
+
+@[extern "pap_test_1"]
+opaque Pap1 (f : ℕ → ℕ → ℕ) (a b : ℕ) : ℕ
+
+@[extern "pap_test_2"]
+opaque Pap2 (f : ℕ → ℕ → ℕ) (a b : ℕ) : ℕ
